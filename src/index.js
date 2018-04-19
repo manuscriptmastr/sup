@@ -10,7 +10,7 @@ let Screen = () =>
   <Router>
     <div>
       <Switch>
-        <Route path="/:userId/sups" component={UserSupsScreen}/>
+        <Route path="/sups/:userId" component={UserSupsScreen}/>
         <Route path="/sups" component={AllSupsScreen}/>
         <Route path="/" component={HomePageScreen}/>
       </Switch>
