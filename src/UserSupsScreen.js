@@ -28,6 +28,7 @@ class UserSupsScreen extends Component {
     let prevUserId = prevProps.match.params.userId;
     let currUserId = this.props.match.params.userId;
     if (prevUserId !== currUserId) {
+      this.setState({ sups: [] });
       this.fetchData();
     }
   }
