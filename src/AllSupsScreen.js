@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import SupList from './SupList';
 import { fetchSups } from './lib/api';
 import { connect } from 'react-redux';
+import { updateSups } from './lib/actions/sups';
 
 let AllSupsScreenDumb = ({ sups }) =>
   <div>
@@ -10,13 +11,10 @@ let AllSupsScreenDumb = ({ sups }) =>
   </div>
 
 class FetchSups extends Component {
-  constructor(props) {
-    super(props);
-  }
 
   async fetchData() {
     let newSups = await fetchSups();
-    this.props.dispatch({ type: 'UPDATE_SUPS', sups: newSups });
+    this.props.dispatch(updateSups(newSups));
   }
 
   componentDidMount() {
