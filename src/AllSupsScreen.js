@@ -1,20 +1,22 @@
 import React, { Component } from 'react';
 import SupList from './SupList';
 import { fetchSups } from './lib/api';
+import { connect } from 'react-redux';
 
-class AllSupsScreen extends Component {
+let AllSupsScreenDumb = ({ sups }) =>
+  <div>
+    <h1>All Sups</h1>
+    <SupList sups={sups}/>
+  </div>
+
+class FetchSups extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      sups: []
-    }
   }
 
   async fetchData() {
     let newSups = await fetchSups();
-    this.setState({
-      sups: newSups
-    });
+    this.props.dispatch({ type: 'UPDATE_SUPS', sups: newSups });
   }
 
   componentDidMount() {
@@ -22,14 +24,13 @@ class AllSupsScreen extends Component {
   }
 
   render() {
-    let { sups } = this.state;
-    return (
-      <div>
-        <h1>All Sups</h1>
-        <SupList sups={sups}/>
-      </div>
-    );
+    return <AllSupsScreenDumb {...this.props}/>
   }
 }
+
+let AllSupsScreen = connect(
+  ({ sups }) => ({ sups }),
+  (dispatch) => ({ dispatch })
+)(FetchSups);
 
 export default AllSupsScreen;
