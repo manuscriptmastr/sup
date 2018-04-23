@@ -15,13 +15,16 @@ class FetchSups extends Component {
 
   async fetchData() {
     let { userId } = this.props.match.params;
-    console.log(userId)
     let newSups = await fetchSups();
     let filteredSups = filterBy({ userId })(newSups);
     this.props.dispatch(updateSups(filteredSups));
   }
 
   componentDidMount() {
+    this.fetchData();
+  }
+
+  componentDidUpdate() {
     this.fetchData();
   }
 

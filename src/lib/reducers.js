@@ -1,4 +1,4 @@
-import { UPDATE_SUPS } from './actions/sups';
+import { updateSups } from './actions/sups';
 
 const initialState = {
   "sups":[
@@ -8,15 +8,21 @@ const initialState = {
   ]
 };
 
-const reducers = (oldState = initialState, action) => {
-  switch (action.type) {
-    case UPDATE_SUPS:
-      let newSups = action.sups;
-      let newState = { ...oldState, sups: newSups };
-      return newState;
-    default:
-      return oldState;
-  }
+let fallbackReducer = (state, action) => state;
+
+let updateSupsReducer = (state, action) => {
+  let newSups = action.sups;
+  let newState = { ...state, sups: newSups };
+  return newState;
+}
+
+let babyReducers = {
+  [updateSups]: updateSupsReducer
+}
+
+const reducers = (state = initialState, action) => {
+  let reducer = babyReducers[action.type] || fallbackReducer;
+  return reducer(state, action);
 }
 
 export default reducers;
