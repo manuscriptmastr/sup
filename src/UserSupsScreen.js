@@ -24,8 +24,12 @@ class FetchSups extends Component {
     this.fetchData();
   }
 
-  componentDidUpdate() {
-    this.fetchData();
+  componentDidUpdate(prevProps) {
+    let { userId: prevId } = prevProps.match.params;
+    let { userId } = this.props.match.params;
+    if (userId !== prevId) {
+      this.fetchData();
+    }
   }
 
   render() {
